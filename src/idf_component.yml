@@ -1,0 +1,7 @@
+## IDF Component Manager manifest
+## Pulls in Espressif's led_strip driver, used by hardware.c for the
+## onboard RGB status LED (GPIO8).
+## Pinned to 3.0.0: newer led_strip releases call rmt_tx_switch_gpio(), which
+## only exists in ESP-IDF 5.5+, and PlatformIO's espressif32 6.10.0 ships IDF 5.4.
+dependencies:
+  espressif/led_strip: "==3.0.0"
