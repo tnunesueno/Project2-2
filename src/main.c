@@ -82,6 +82,9 @@ static void draw_hud(Conveyor* cv, BoxLine* bl)
     // of slow serial commands. Consider only calling uLCD_printf() when the
     // numbers actually changed since last frame (e.g. keep a "last printed"
     // copy and compare).
+
+   
+    
     (void)cv; //DELETE LINE WHEN THIS METHOD IS IMPLEMENTED
     (void)bl; //DELETE LINE WHEN THIS METHOD IS IMPLEMENTED
 }
@@ -187,6 +190,22 @@ static void play_round(void)
 {
     Conveyor belt;
     conveyor_init(&belt);
+    // TESTING 
+ /*
+    ConveyorItemData* item = malloc(sizeof(ConveyorItemData));
+    item->type = PART_GEAR;
+    item->pos = BELT_LEN - 1;
+    insertTail(belt.items, item);
+    belt.count = 1;
+
+    conveyor_tick(&belt);
+
+    int occupancy[BELT_LEN];
+    conveyor_occupancy(&belt, occupancy);
+
+    printf("Tick test: slot 0 contains %d\n", occupancy[0]);
+    printf("Tick test: last slot contains %d\n", occupancy[BELT_LEN - 1]);
+*/
     BoxLine line;
     boxes_init(&line);
     Player p;

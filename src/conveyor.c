@@ -19,9 +19,11 @@ static void build_path(BeltPoint* path)
 
 // TODO [Base]: allocate the belt's doubly linked list with create_dlinkedlist()
 // (see doubly_linked_list.h) and reset the rest of the belt's state.
+//create_dlinkedlist(); 
+
 void conveyor_init(Conveyor* cv)
 {
-    cv->items = NULL; // TODO: cv->items = create_dlinkedlist();
+    cv->items = create_dlinkedlist();
     cv->count = 0;
     cv->paused = false;
     cv->ticks_since_spawn = 0;
@@ -35,10 +37,29 @@ void conveyor_init(Conveyor* cv)
 // that using the DLL's insertTail()/deleteNode() rather than by hand-editing
 // pointers. Walk the list with getHead()/getNext()/getData(). A no-op while
 // paused (check cv->paused first).
-void conveyor_tick(Conveyor* cv)
-{
+void conveyor_tick(Conveyor* cv) {
     // TODO: implement.
+    
+    while (!cv->paused){
+        LLNode* currentNode = getHead(cv->items);
+        while(currentNode){
+            ConveyorItem * currentItem = (ConveyorItem*)getData(currentNode); 
+            //if the current node is the last slot, it must be deleted out of the tail and added to the head 
+            if(currentItem->pos == BELT_LEN -1){
+                deleteNode(cv->items, currentNode); 
+                insertHead(cv->items, currentNode); 
+                // Continue to the next, now the one right after the head for another tick 
+                currentNode = getNext(currentNode); 
+            } else{
+                // if not tail, move one forward 
+                currentItem->pos++; 
+                currentNode = getNext(currentNode); 
+            }
+        }
+
+    }
 }
+
 
 // TODO [Base]: "obvious spawn point". Add a new random part at slot 0 using
 // insertTail(). Should fail (return false) if the spawn slot is already
@@ -47,6 +68,10 @@ void conveyor_tick(Conveyor* cv)
 bool conveyor_spawn(Conveyor* cv)
 {
     // TODO: implement.
+    // check if head and tail are in slot 0 
+    LLNode* head = getHead(cv->items);
+    LLNode* tail = getTail(cv->items); 
+    // get head and tail position 
     return false;
 }
 
